@@ -9,14 +9,23 @@ public class Transacao {
 	
 	public Double sacar(String conta, Double valor){
 		if(contas.get(conta) == null){
-			throw new RuntimeException("Conta não existe");
+			throw new ContaNaoExisteException();
 		}
 		Double saldo = contas.get(conta);
-//		if(saldo < valor){
-//			System.err.println("Valor de saque insuficiente");
-//			continue;
-//		}
+		if(saldo < valor){
+			throw new SaldoNegativoException();
+		}
 		contas.put(conta, saldo - valor);
+		return contas.get(conta);
+	}
+	
+	
+	public Double depositar(String conta, Double valor){
+		if(contas.get(conta) == null){
+			throw new ContaNaoExisteException();
+		}
+		Double saldo = contas.get(conta);
+		contas.put(conta, saldo + valor);
 		return contas.get(conta);
 	}
 	

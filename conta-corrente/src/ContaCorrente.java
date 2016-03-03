@@ -7,6 +7,7 @@ public class ContaCorrente {
 	public static void main(String[] args) {
 		Map<String, Double> contas = new HashMap<>();
 		Scanner leitor = new Scanner(System.in);
+		Transacao transacao = new Transacao(contas);
 		Integer opcao;
 		do{
 			System.out.println("Digite alguma coisa");
@@ -22,24 +23,28 @@ public class ContaCorrente {
 				System.out.println("Você criou a conta: " + codigo);
 			} else if( opcao == 2){
 				System.out.println("Informa o numero da conta");
-				String codigo = leitor.next();
+				String conta = leitor.next();
 				System.out.println("Informe o valor que deseja depositar");
 				Double valor = leitor.nextDouble();
-				Double saldo = contas.get(codigo);
-				contas.put(codigo, saldo + valor);
-				System.err.println("Saldo: " + contas.get(codigo));
+				try{
+					Double saldo = transacao.depositar(conta, valor);
+					System.out.println("Saldo: " + saldo);					
+				}catch(ContaNaoExisteException e){
+					System.err.println("Conta não existe");
+				}
 			} else if( opcao == 3) {
 				System.out.println("Informa o numero da conta");
-				String codigo = leitor.next();
+				String conta = leitor.next();
 				System.out.println("Informe o valor que deseja sacar");
 				Double valor = leitor.nextDouble();
-				Double saldo = contas.get(codigo);
-				if(saldo < valor){
-					System.err.println("Valor de saque insuficiente");
-					continue;
+				try{
+					Double saldo = transacao.sacar(conta, valor);
+					System.out.println("Saldo: " + saldo);					
+				}catch(SaldoNegativoException e){
+					System.err.println("Saldo insuficiente");
+				} catch(ContaNaoExisteException e){
+					System.err.println("Conta não existe");
 				}
-				contas.put(codigo, saldo - valor);
-				System.err.println("Saldo: " + contas.get(codigo));		
 			}
 		}while(opcao != 0);
 		System.out.println("Saindo do sistema");
