@@ -1,3 +1,5 @@
+package br.edu.horus.cc;
+
 
 public class SaldoNegativoException extends RuntimeException {
 

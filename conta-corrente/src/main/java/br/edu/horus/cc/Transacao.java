@@ -1,3 +1,5 @@
+package br.edu.horus.cc;
+
 import java.util.Map;
 
 public class Transacao {
