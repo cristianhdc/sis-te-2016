@@ -48,7 +48,7 @@ public class TransacaoTest {
 	}
 	
 	/*
-	 * Não deve transferir quando a conta da qual vai ser debitado esta sem saldo
+	 * Não deve sacar da primeira conta, quando ela não tiver saldo
 	 */
 	@Test(expected = SaldoNegativoException.class)
 	public void testNaoDeveTransaferirQuandoSemSaldo(){
