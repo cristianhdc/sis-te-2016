@@ -1,7 +1,7 @@
 package br.edu.horus.cc;
 
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,23 +52,43 @@ public class TransacaoTest {
 	 */
 	@Test(expected = SaldoNegativoException.class)
 	public void testNaoDeveTransaferirQuandoSemSaldo(){
-		fail("Not yet implemented");
+		contas.put("1", 9.01);
+		contas.put("2", 9.01);
+		try{
+			transacao.transferir("1", "2", 9.02);			
+		}catch(SaldoNegativoException e){			
+			assertEquals(Double.valueOf(9.01), contas.get("1"));
+			assertEquals(Double.valueOf(9.01), contas.get("2"));
+			throw e;
+		}
 	}
 	
 	/*
 	 * Não deve transferir quando a primeira conta não existir
 	 */
-	@Test
+	@Test(expected = ContaNaoExisteException.class)
 	public void testNaoDeveTransaferirQuandoPrimeiraContaNaoExiste(){
-		fail("Not yet implemented");
+		contas.put("2", 9.01);
+		try{
+			transacao.transferir("1", "2", 9.02);			
+		}catch(ContaNaoExisteException e){			
+			assertEquals(Double.valueOf(9.01), contas.get("2"));
+			throw e;
+		}
 	}
 	
 	/*
 	 * Não deve transferir quando a segunda conta não existir
 	 */
-	@Test(expected = SaldoNegativoException.class)
+	@Test(expected = ContaNaoExisteException.class)
 	public void testNaoDeveTransaferirQuandoSegundaContaNaoExiste(){
-		fail("Not yet implemented");
+		contas.put("1", 9.01);
+		try{
+			transacao.transferir("1", "2", 9.01);			
+		}catch(ContaNaoExisteException e){			
+			assertEquals(Double.valueOf(9.01), contas.get("1"));
+			throw e;
+		}
 	}
 }
 

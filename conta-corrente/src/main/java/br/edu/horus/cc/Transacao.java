@@ -29,6 +29,25 @@ public class Transacao {
 		Double saldo = contas.get(conta);
 		contas.put(conta, saldo + valor);
 		return contas.get(conta);
-	}
+	}	
 	
+	public void transferir(String conta1, String conta2, Double valor){
+		//faz o saque na primeira conta
+		sacar(conta1, valor);
+		try{
+			/*
+			 * deposita na segunda conta, protegendo contra
+			 * uma exceção do tipo ContaNaoExiste
+			 */
+			depositar(conta2, valor);
+		}catch(ContaNaoExisteException e){
+			/*
+			 * caso a exceção for lançada, deposita o valor sacado
+			 * da primeira conta devolta
+			 */
+			depositar(conta1, valor);
+			//promulga a exceção("quem está chamando deve decidir o que fazer")
+			throw e;
+		}
+	}	
 }

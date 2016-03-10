@@ -17,6 +17,7 @@ public class ContaCorrente {
 			System.out.println("1 - para criar uma conta");
 			System.out.println("2 - para fazer um depósito");
 			System.out.println("3 - para saque");
+			System.out.println("4 - para transferencia");
 			opcao = leitor.nextInt();
 			if(opcao == 1){
 				System.out.println("Informa o numero da conta");
@@ -46,6 +47,20 @@ public class ContaCorrente {
 					System.err.println("Saldo insuficiente");
 				} catch(ContaNaoExisteException e){
 					System.err.println("Conta não existe");
+				}
+			} else if (opcao == 4){
+				System.out.println("Informa o numero da conta para sacar");
+				String conta1 = leitor.next();
+				System.out.println("Informa o numero da conta para depositar");
+				String conta2 = leitor.next();
+				System.out.println("Informe o valor que deseja tranferir");
+				Double valor = leitor.nextDouble();
+				try{					
+					transacao.transferir(conta1, conta2, valor);
+				}catch(SaldoNegativoException e){
+					System.err.println("Saldo insuficiente para sacar");
+				} catch(ContaNaoExisteException e){
+					System.err.println("Uma das Contas não existe");
 				}
 			}
 		}while(opcao != 0);
