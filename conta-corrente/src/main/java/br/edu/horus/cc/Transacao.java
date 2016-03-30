@@ -49,5 +49,5 @@ public class Transacao {
 			//promulga a exceção("quem está chamando deve decidir o que fazer")
 			throw e;
 		}
-	}	
+	}
 }

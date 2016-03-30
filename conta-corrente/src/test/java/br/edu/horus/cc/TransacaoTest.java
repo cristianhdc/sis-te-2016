@@ -8,9 +8,15 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 public class TransacaoTest {
+	
+	@ClassRule
+	public static TestRule test = new DataBaseRule();
+	
 	Map<String, Double> contas = new HashMap<>();
 	Transacao transacao = new Transacao(contas);
 	
