@@ -5,30 +5,31 @@ import java.util.Map;
 public class Transacao {
 	Map<String, Double> contas;
 	
+	private Repositorio repositorio;
+	
+	public Transacao(Repositorio repositorio){
+		this.repositorio = repositorio;
+	}
+	
 	public Transacao(Map<String, Double> contas){
 		this.contas = contas;
 	}
 	
-	public Double sacar(String conta, Double valor){
-		if(contas.get(conta) == null){
-			throw new ContaNaoExisteException();
-		}
-		Double saldo = contas.get(conta);
-		if(saldo < valor){
-			throw new SaldoNegativoException();
-		}
-		contas.put(conta, saldo - valor);
-		return contas.get(conta);
+	public Double sacar(String numero, Double valor){
+		Conta conta = repositorio.selecionar(numero);
+		Double saldo = conta.sacar(valor);
+		Movimento movimento = new Movimento(conta, valor * -1);
+		repositorio.salvar(movimento);
+		return saldo;
 	}
 	
 	
-	public Double depositar(String conta, Double valor){
-		if(contas.get(conta) == null){
-			throw new ContaNaoExisteException();
-		}
-		Double saldo = contas.get(conta);
-		contas.put(conta, saldo + valor);
-		return contas.get(conta);
+	public Double depositar(String numero, Double valor){
+		Conta conta = repositorio.selecionar(numero);
+		Double saldo = conta.depositar(valor);
+		Movimento movimento = new Movimento(conta, valor);
+		repositorio.salvar(movimento);
+		return saldo;
 	}	
 	
 	public void transferir(String conta1, String conta2, Double valor){

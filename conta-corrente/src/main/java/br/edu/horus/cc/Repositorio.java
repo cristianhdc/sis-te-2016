@@ -14,10 +14,11 @@ public class Repositorio {
 	}
 	
 	public void salvar(Conta conta){
-		String sql = "INSERT INTO contas (numero) VALUES (?)";
+		String sql = "INSERT INTO contas (numero, saldo) VALUES (?, ?)";
 		try{
 			PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, conta.getNumero());
+			statement.setDouble(2, conta.getSaldo());
 			statement.executeUpdate();
 			
 			//recupera o id de conta gerado pelo banco
@@ -54,6 +55,14 @@ public class Repositorio {
 			PreparedStatement statement = conexao.prepareStatement(sql);
 			statement.setString(1, numero);
 			ResultSet result = statement.executeQuery();
+			if(result.next()){
+				Conta conta = new Conta(result.getString("numero"));
+				conta.setId(result.getInt("id"));
+				conta.setSaldo(result.getDouble("saldo"));
+				return conta;
+			} else {
+				throw new ContaNaoExisteException();
+			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
 		}

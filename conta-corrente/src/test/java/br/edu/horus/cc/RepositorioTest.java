@@ -29,53 +29,7 @@ public class RepositorioTest {
 	public void testSelecionarConta(){
 		String numero = "1729-24";
 		Conta conta = new Conta(numero);
-		repositorio.salvar(conta);
-		
+		repositorio.salvar(conta);		
 		Conta conta2 = repositorio.selecionar(numero);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
