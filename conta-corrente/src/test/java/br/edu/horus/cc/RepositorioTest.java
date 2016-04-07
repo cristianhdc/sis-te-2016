@@ -8,7 +8,7 @@ import org.junit.Test;
 public class RepositorioTest {
 
 	@ClassRule
-	public static DataBaseRule test = new DataBaseRule();
+	public static Conexao test = new DataBaseRule();
 	Connection conexao = test.conectar();
 	Repositorio repositorio = new Repositorio(conexao);
 

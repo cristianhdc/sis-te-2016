@@ -6,10 +6,13 @@ import java.util.Scanner;
 
 public class ContaCorrente {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		Map<String, Double> contas = new HashMap<>();
 		Scanner leitor = new Scanner(System.in);
-		Transacao transacao = new Transacao(contas);
+		Conexao conexao = new Conexao();
+		conexao.criarBanco();
+		Repositorio repositorio = new Repositorio(conexao.conectar());
+		Transacao transacao = new Transacao(repositorio);
 		Integer opcao;
 		do{
 			System.out.println("Digite alguma coisa");
@@ -22,7 +25,7 @@ public class ContaCorrente {
 			if(opcao == 1){
 				System.out.println("Informa o numero da conta");
 				String codigo = leitor.next();
-				contas.put(codigo, 0.00);
+				repositorio.salvar(new Conta(codigo));
 				System.out.println("Você criou a conta: " + codigo);
 			} else if( opcao == 2){
 				System.out.println("Informa o numero da conta");

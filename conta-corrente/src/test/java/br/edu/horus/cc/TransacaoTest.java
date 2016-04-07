@@ -14,7 +14,7 @@ import org.junit.Test;
 public class TransacaoTest {
 	
 	@ClassRule
-	public static DataBaseRule test = new DataBaseRule();
+	public static Conexao test = new DataBaseRule();
 	
 	Map<String, Double> contas = new HashMap<>();
 	Repositorio repositorio = new Repositorio(test.conectar());
