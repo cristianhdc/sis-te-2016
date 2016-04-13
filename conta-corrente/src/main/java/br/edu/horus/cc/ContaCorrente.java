@@ -1,13 +1,10 @@
 package br.edu.horus.cc;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ContaCorrente {
 
 	public static void main(String[] args) throws Exception{
-		Map<String, Double> contas = new HashMap<>();
 		Scanner leitor = new Scanner(System.in);
 		Conexao conexao = new Conexao();
 		conexao.criarBanco();

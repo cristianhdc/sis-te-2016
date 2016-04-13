@@ -8,8 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.junit.rules.TestRule;
-
 public class Conexao {
 
 	public Conexao() {
